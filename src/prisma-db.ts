@@ -51,7 +51,7 @@ export async function addProduct(
   });
 }
 
-export async function updateProduct(
+export async function updateProducts(
   id: number,
   title: string,
   price: number,
