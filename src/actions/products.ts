@@ -1,7 +1,8 @@
 "use server";
 
 import { addProduct } from "@/prisma-db";
-import { updateProducts } from "@/prisma-db";
+import { updateProducts, deleteProduct } from "@/prisma-db";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export type Errors = {
@@ -72,4 +73,10 @@ export async function updateProduct(
   // Call the actual DB update function (rename to avoid self-call)
   await updateProducts(id, title, parseFloat(price), description);
   redirect("/products-db");
+}
+
+// delete action
+export async function removeProduct(id: number) {
+  await deleteProduct(id);
+  revalidatePath("/products-db");
 }
